@@ -15,7 +15,7 @@ export class AppService {
   }
 
   getApikey(): string {
-    return `${this.config.apikey}!!`;
+    return `12345!!`;
   }
 
   validateRut(rut: string): boolean {

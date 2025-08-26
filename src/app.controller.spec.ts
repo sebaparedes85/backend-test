@@ -28,7 +28,11 @@ describe('AppController', () => {
 
   describe('Probar el modulo raiz del proyecto', () => {
     test('Esto deberia retornar hola mundo en ingles"', () => {
-      expect(appController.getHello()).toBe('Hello !!');
+      expect(appController.getHello()).toBe('Hello sebap!!');
+    });
+
+    test('Esto deberia retornar la apikey del usuario', () => {
+      expect(appController.getApikey()).toBe('12345!!');
     });
   });
 });
