@@ -14,11 +14,11 @@ pipeline {
                         sh 'npm install'
                     }
                 }
-                // stage('Ejecucion de pruebas automatizadas') {
-                //     steps {
-                //         sh 'npm run test:cov'
-                //     }
-                // }
+                stage('Ejecucion de pruebas automatizadas') {
+                    steps {
+                        sh 'npm run test:cov'
+                    }
+                }
                 stage('Construccion de aplicacion') {
                     steps {
                         sh 'npm run build'
@@ -58,7 +58,7 @@ pipeline {
             } 
 
         }
-        
+
         // stage('Etapa de empaquetado y delivery') {
         //     steps {
         //         sh 'docker build -t backend-node-devops:cmd .'
