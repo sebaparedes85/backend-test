@@ -11,7 +11,7 @@ pipeline {
             stages{
                 stage('Instalacion de dependencias') {
                     steps {                        
-                        sh 'apt-get install iputils-ping -y'
+                        
                         sh 'ping www.google.com'
                         //sh 'npm install'
                     }
