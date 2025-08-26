@@ -22,4 +22,18 @@ describe('AppController (e2e)', () => {
       .query({ operacion: 'suma', a: 10, b: 30 })
       .expect(200);
   });
+
+  it('/operaciones (GET) division por cero', () => {
+    return request(app.getHttpServer())
+      .get('/operaciones')
+      .query({ operacion: 'division', a: 10, b: 0 })
+      .expect(502);
+  });
+
+  it('/operaciones (GET) sin operacion', () => {
+    return request(app.getHttpServer())
+      .get('/operaciones')
+      .query({ operacion: 'unknown', a: 10, b: 30 })
+      .expect(502);
+  });
 });
