@@ -59,21 +59,22 @@ pipeline {
 
         }
 
-        // stage('Etapa de empaquetado y delivery') {
-        //     steps {
-        //         sh 'docker build -t backend-node-devops:cmd .'
-        //         sh "docker tag backend-node-devops:cmd carlosmarind/backend-node-devops:${BUILD_NUMBER}"
-        //         sh "docker tag backend-node-devops:cmd localhost:8082/backend-node-devops:${BUILD_NUMBER}"
-        //         script {
-        //             docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
-        //                 sh "docker push carlosmarind/backend-node-devops:${BUILD_NUMBER}"
-        //             }
-        //             docker.withRegistry('http://localhost:8082', 'nexus-credentials') {
-        //                 sh "docker push localhost:8082/backend-node-devops:${BUILD_NUMBER}"
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Etapa de empaquetado y delivery') {
+            steps {
+                sh 'docker build -t backend-test:cmd .'
+                //sh "docker tag backend-test:cmd carlosmarind/backend-node-devops:${BUILD_NUMBER}"
+                sh "docker tag backend-test:cmd localhost:8082/backend-test:${BUILD_NUMBER}"
+                script {
+                    // docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
+                    //     sh "docker push carlosmarind/backend-test:${BUILD_NUMBER}"
+                    // }
+                    docker.withRegistry('http://localhost:8082', 'nexus-credentials') {
+                        sh "docker push localhost:8082/backend-test:${BUILD_NUMBER}"
+                    }
+                }
+            }
+        }
+
         // stage('Despliegue continuo') {
         //     when {
         //         branch 'main'
@@ -89,6 +90,6 @@ pipeline {
         //              sh "kubectl -n devops set image deployments backend-node-devops backend-node-devops=localhost:8082/backend-node-devops:${BUILD_NUMBER}"
         //         }
         //     }
-        // }
+        //}
     }
 }
