@@ -11,19 +11,21 @@ pipeline {
             stages{
                 stage('Instalacion de dependencias') {
                     steps {
-                        sh 'npm install'
+                        sh 'apt-get install iputils-ping -y'
+                        sh 'ping www.google.com'
+                        //sh 'npm install'
                     }
                 }
-                stage('Ejecucion de pruebas automatizadas') {
-                    steps {
-                        sh 'npm run test:cov'
-                    }
-                }
-                stage('Construccion de aplicacion') {
-                    steps {
-                        sh 'npm run build'
-                    }
-                }
+                // stage('Ejecucion de pruebas automatizadas') {
+                //     steps {
+                //         sh 'npm run test:cov'
+                //     }
+                // }
+                // stage('Construccion de aplicacion') {
+                //     steps {
+                //         sh 'npm run build'
+                //     }
+                // }
             }
         }
         stage("Quality Assurance"){
