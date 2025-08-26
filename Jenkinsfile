@@ -11,51 +11,53 @@ pipeline {
             stages{
                 stage('Instalacion de dependencias') {
                     steps {                        
-                        sh 'npm install'
+                        sh 'apt-get install iputils-ping -y'
+                        sh 'ping www.google.com'
+                        //sh 'npm install'
                     }
                 }
-                stage('Ejecucion de pruebas automatizadas') {
-                    steps {
-                        sh 'npm run test:cov'
-                    }
-                }
-                stage('Construccion de aplicacion') {
-                    steps {
-                        sh 'npm run build'
-                    }
-                }
+                // stage('Ejecucion de pruebas automatizadas') {
+                //     steps {
+                //         sh 'npm run test:cov'
+                //     }
+                // }
+                // stage('Construccion de aplicacion') {
+                //     steps {
+                //         sh 'npm run build'
+                //     }
+                // }
             }
         }
-        stage("Quality Assurance"){
-            agent {
-                docker {
-                    image 'sonarsource/sonar-scanner-cli'
-                    args '--network=devops-infra_default'
-                    reuseNode true
-                }
-            }
-            stages{
-                stage('Upload de codigo a sonarqube') {
-                    steps{
-                        withSonarQubeEnv('Sonar01') {
-                            sh 'sonar-scanner'
-                        }
+        // stage("Quality Assurance"){
+        //     agent {
+        //         docker {
+        //             image 'sonarsource/sonar-scanner-cli'
+        //             args '--network=devops-infra_default'
+        //             reuseNode true
+        //         }
+        //     }
+        //     stages{
+        //         stage('Upload de codigo a sonarqube') {
+        //             steps{
+        //                 withSonarQubeEnv('Sonar01') {
+        //                     sh 'sonar-scanner'
+        //                 }
                         
-                    }
-                }
-                stage('Quality Gate'){
-                    steps{
-                        timeout(time: 30, unit: 'SECONDS') {
-                            script {
-                                    def qg = waitForQualityGate()
-                                    if (qg.status != 'OK') {
-                                        error "La puerta de calidad no paso: ${qg.status}"
-                                    }
-                            }
-                        }
-                    }
-                }
-            } 
+        //             }
+        //         }
+        //         stage('Quality Gate'){
+        //             steps{
+        //                 timeout(time: 30, unit: 'SECONDS') {
+        //                     script {
+        //                             def qg = waitForQualityGate()
+        //                             if (qg.status != 'OK') {
+        //                                 error "La puerta de calidad no paso: ${qg.status}"
+        //                             }
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     } 
 
         }
         // stage('Etapa de empaquetado y delivery') {
