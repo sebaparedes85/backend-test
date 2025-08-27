@@ -40,21 +40,21 @@ pipeline {
                         withSonarQubeEnv('Sonar01') {
                             sh 'sonar-scanner'
                         }
-                        waitForQualityGate abortPipeline: true
+                        
                     }
                 }
-                // stage('Quality Gate'){
-                //     steps{
-                //         timeout(time: 180, unit: 'SECONDS') {
-                //             script {
-                //                     def qg = waitForQualityGate()
-                //                     if (qg.status != 'OK') {
-                //                         error "La puerta de calidad no paso: ${qg.status}"
-                //                     }
-                //             }
-                //         }
-                //     }
-                // }
+                stage('Quality Gate'){
+                    steps{
+                        timeout(time: 60, unit: 'SECONDS') {
+                            script {
+                                    def qg = waitForQualityGate()
+                                    if (qg.status != 'OK') {
+                                        error "La puerta de calidad no paso: ${qg.status}"
+                                    }
+                            }
+                        }
+                    }
+                }
             } 
 
         }
