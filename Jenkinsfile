@@ -60,11 +60,11 @@ pipeline {
 
         stage('Etapa de empaquetado y delivery') {
             steps {
-                sh 'docker build -t backend-test:cmd .'
-                sh "docker tag backend-test:cmd localhost:8082/backend-test:${BUILD_NUMBER}"
+                sh 'docker build -t backend-test:spr .'
+                sh "docker tag backend-test:spr localhost:8082/backend-test:latest"
                 script {
                     docker.withRegistry('http://localhost:8082', 'nexus-credentials') {
-                        sh "docker push localhost:8082/backend-test:${BUILD_NUMBER}"
+                        sh "docker push localhost:8082/backend-test:latest"
                     }
                 }
             }
