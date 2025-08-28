@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: backend-test
-        image: localhost:8082/backend-test:cmd
+        image: localhost:8082/backend-test:latest
         imagePullPolicy: Always
         env:
         - name: NODE_ENV_SECUNDARIA
